@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { UseFetch } from './api/api';
+import { Post } from './components/Post';
+import { Col, Container, Row } from 'react-bootstrap';
+import './App.scss';
+import { Nav } from './components/Nav';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [search, setSearch] = useState('');
+	const { posts, users, isError, isLoading } = UseFetch();
+	posts.forEach((post, id) => {
+		post.name = users[id]?.name;
+	});
+
+	const filteredName = !search
+		? posts
+		: posts.filter((post) =>
+				post.name?.toLowerCase().includes(search.toLowerCase())
+		  ) || posts;
+
+	return (
+		<>
+			<Nav search={search} setSearch={setSearch} />
+			<Container>
+				{isError && <div>Something went wrong...</div>}
+
+				{isLoading ? (
+					<div>Loading...</div>
+				) : (
+					<Row md={3}>
+						{filteredName?.map((post) => (
+							<Col key={post.id}>
+								<Post post={post} />
+							</Col>
+						))}
+					</Row>
+				)}
+			</Container>
+		</>
+	);
 }
 
 export default App;

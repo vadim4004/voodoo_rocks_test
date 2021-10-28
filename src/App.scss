@@ -1,0 +1,36 @@
+@import '~bootstrap/scss/bootstrap';
+
+.title {
+	color: rgb(30, 135, 255);
+}
+body {
+	background-color: #eaeff3;
+}
+
+.form-input {
+	margin: 10px auto;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.input {
+	display: block;
+	padding: 5px 10px 5px 50px;
+	font-size: 18px;
+	line-height: 30px;
+	outline: 0;
+	width: 100%;
+}
+
+.img {
+	position: absolute;
+	left: 15px;
+	top: 0;
+	font-size: 20px;
+	height: 80%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
